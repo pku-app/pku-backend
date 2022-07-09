@@ -19,3 +19,32 @@ services:
       - /usr/src/app/node_modules
     command: npm run start:debug
     restart: unless-stopped
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - pku-network
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+    restart: unless-stopped
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    volumes:
+      - mongodb-data:/data/db
+    depends_on:
+      - mongodb
+    networks:
+      - pku-network
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    restart: unless-stopped
+volumes:
+  mongodb-data:
+    name: mongodb-data
