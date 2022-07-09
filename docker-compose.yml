@@ -1,0 +1,21 @@
+version: '3.8'
+
+networks:
+  pku-network:
+services:
+  api:
+    container_name: pku-backend
+    image: pku-backend-dev:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+      - 9229:9229
+    networks:
+      - pku-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:debug
+    restart: unless-stopped
