@@ -8,7 +8,7 @@ RUN npm i glob rimraf
 
 RUN npm i -g @nestjs/cli
 
-RUN npm i --only=development
+RUN npm i
 
 COPY . .
 
