@@ -2,33 +2,15 @@ import {
   IsString,
   IsEmail,
   IsNotEmpty,
-  IsDate,
   MinLength,
   MaxLength,
-  ValidateNested,
-  IsNumber
+  ValidateNested
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { HealthInfoDTO } from './health_info.dto';
 
-export class HealthInfoDTO {
-  @Type(() => Date)
-  @IsDate()
-  birthdate: Date;
-
-  @Type(() => Number)
-  @IsNumber()
-  height: number;
-
-  @Type(() => Number)
-  @IsNumber()
-  weight: number;
-
-  @Type(() => Date)
-  @IsDate()
-  last_updated: Date;
-}
-
-export class UsersDTO {
+// Validation used when creating a new user
+export class CreateUsersDTO {
   @IsString()
   @MaxLength(64, { message: 'Name is too long (64 characters max)' })
   name: string;

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
-import { UsersDTO } from 'src/users/dto/users.dto';
+import { CreateUsersDTO } from 'src/users/dto/create_users.dto';
 import { Users } from 'src/users/interfaces/users.interface';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,7 +20,7 @@ export class AuthService {
    * @returns - user's object in case it's created successfully.
    * In case another user with same email exists, throws ConflictException.
    */
-  async signUp(usersDTO: UsersDTO): Promise<Users> {
+  async signUp(usersDTO: CreateUsersDTO): Promise<Users> {
     const { name, email, password, type, health_info } = usersDTO; // extracts user's data to be saved
 
     const hashedPassword = await bcrypt.hash(password, 12); // hashes password using 12 saltRounds
@@ -39,10 +39,9 @@ export class AuthService {
     }
   }
 
-
   /**
    * Sign-in user by generating them an accessToken
-   * @param user - user's payload
+   * @param user - user's payload (JWT strategy)
    * @returns JWT's accessToken, valid for 7 days
    */
   async signIn(user: Users) {
